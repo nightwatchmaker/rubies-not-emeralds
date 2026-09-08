@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "rubytext",
+  "version": "${version}",
+  "name": "Ruby Text",
+  "description": "Client-side Emerald-to-Ruby text replacement with safe built-in Ruby visual overrides enabled automatically.",
+  "authors": ["nightwatchmaker", "Hermes Agent"],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": { "client": ["com.nightwatchmaker.rubytext.RubyTextMod"] },
+  "depends": {
+    "fabricloader": ">=0.19.3",
+    "minecraft": ">=26.2 <26.3",
+    "java": ">=25"
+  },
+  "mixins": ["rubytext.mixins.json"]
+}

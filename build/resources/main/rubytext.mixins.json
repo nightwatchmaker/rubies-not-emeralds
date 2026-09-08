@@ -1,0 +1,7 @@
+{
+  "required": true,
+  "package": "com.nightwatchmaker.rubytext.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": ["FormattedCharSequenceMixin", "MutableComponentMixin"],
+  "injectors": { "defaultRequire": 1 }
+}
