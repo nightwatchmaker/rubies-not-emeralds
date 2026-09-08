@@ -10,6 +10,7 @@ def minecraft26 = files('/root/.gradle/caches/fabric-loom/minecraftMaven/net/min
 def fabricLoader = files('/root/.gradle/caches/modules-2/files-2.1/net.fabricmc/fabric-loader/0.19.3/354dfaa02d0552e11867f85dff7cdbfaf813ba3e/fabric-loader-0.19.3.jar')
 def mixinJar = files('/root/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.16.3+mixin.0.8.7/3e535042688d1265447e52ad86950b7d9678a5fa/sponge-mixin-0.16.3+mixin.0.8.7.jar')
 def brigadierJar = files('/root/.gradle/caches/modules-2/files-2.1/com.mojang/brigadier/1.3.10/d15b53a14cf20fdcaa98f731af5dda654452c010/brigadier-1.3.10.jar')
+def datafixerUpper = files('/root/.gradle/caches/modules-2/files-2.1/com.mojang/datafixerupper/10.0.21/b6b2ae770c02e0c1eb90f9985b151e9085a38d0b/datafixerupper-10.0.21.jar')
 def jspecify = files('/root/.gradle/caches/modules-2/files-2.1/org.jspecify/jspecify/1.0.0/7425a601c1c7ec76645a78d22b8c6a627edee507/jspecify-1.0.0.jar')
 def fastutil = files('/root/.gradle/caches/modules-2/files-2.1/it.unimi.dsi/fastutil/8.5.18/a6cff377eecc19c2037bf31568a6d7106b50ba1f/fastutil-8.5.18.jar')
 
@@ -18,6 +19,7 @@ dependencies {
     compileOnly fabricLoader
     compileOnly mixinJar
     compileOnly brigadierJar
+    compileOnly datafixerUpper
     compileOnly jspecify
     compileOnly fastutil
 }
@@ -35,8 +37,8 @@ java { sourceCompatibility = JavaVersion.VERSION_25; targetCompatibility = JavaV
 
 tasks.named('test') { enabled = false }
 
-tasks.register('verifyRubySwap', JavaExec) {
+tasks.register('verifyRubiesNotEmeralds', JavaExec) {
     dependsOn testClasses
     classpath = sourceSets.test.runtimeClasspath
-    mainClass = 'com.nightwatchmaker.rubytext.RubyTextTest'
+    mainClass = 'com.nightwatchmaker.rubiesnotemeralds.RubiesNotEmeraldsTest'
 }

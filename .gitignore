@@ -1,0 +1,9 @@
+# Gradle state and build outputs are reproducible; do not version them.
+.gradle/
+build/
+
+# Editor and operating-system clutter
+.idea/
+*.iml
+.vscode/
+.DS_Store

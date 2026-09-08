@@ -1,6 +1,6 @@
-package com.nightwatchmaker.rubytext.mixin;
+package com.nightwatchmaker.rubiesnotemeralds.mixin;
 
-import com.nightwatchmaker.rubytext.RubyText;
+import com.nightwatchmaker.rubiesnotemeralds.RubiesNotEmeralds;
 import it.unimi.dsi.fastutil.ints.Int2IntFunction;
 import net.minecraft.network.chat.Style;
 import net.minecraft.util.FormattedCharSequence;
@@ -9,45 +9,34 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-/**
- * Rewrites text at the final client rendering-sequence boundary. This covers
- * ordinary UI labels and text received from servers without altering their data.
- */
+/** Rewrites ordinary client and server-provided text at the render boundary. */
 @Mixin(FormattedCharSequence.class)
 public interface FormattedCharSequenceMixin {
     @Inject(method = "forward(Ljava/lang/String;Lnet/minecraft/network/chat/Style;)Lnet/minecraft/util/FormattedCharSequence;", at = @At("HEAD"), cancellable = true, remap = false)
-    private static void rubytext$forward(String text, Style style,
+    private static void rubiesnotemeralds$forward(String text, Style style,
             CallbackInfoReturnable<FormattedCharSequence> cir) {
-        String replaced = RubyText.replace(text);
-        if (!replaced.equals(text)) {
-            cir.setReturnValue(FormattedCharSequence.forward(replaced, style));
-        }
+        String replaced = RubiesNotEmeralds.replace(text);
+        if (!replaced.equals(text)) cir.setReturnValue(FormattedCharSequence.forward(replaced, style));
     }
 
     @Inject(method = "forward(Ljava/lang/String;Lnet/minecraft/network/chat/Style;Lit/unimi/dsi/fastutil/ints/Int2IntFunction;)Lnet/minecraft/util/FormattedCharSequence;", at = @At("HEAD"), cancellable = true, remap = false)
-    private static void rubytext$forwardWithMapper(String text, Style style, Int2IntFunction mapper,
+    private static void rubiesnotemeralds$forwardWithMapper(String text, Style style, Int2IntFunction mapper,
             CallbackInfoReturnable<FormattedCharSequence> cir) {
-        String replaced = RubyText.replace(text);
-        if (!replaced.equals(text)) {
-            cir.setReturnValue(FormattedCharSequence.forward(replaced, style, mapper));
-        }
+        String replaced = RubiesNotEmeralds.replace(text);
+        if (!replaced.equals(text)) cir.setReturnValue(FormattedCharSequence.forward(replaced, style, mapper));
     }
 
     @Inject(method = "backward(Ljava/lang/String;Lnet/minecraft/network/chat/Style;)Lnet/minecraft/util/FormattedCharSequence;", at = @At("HEAD"), cancellable = true, remap = false)
-    private static void rubytext$backward(String text, Style style,
+    private static void rubiesnotemeralds$backward(String text, Style style,
             CallbackInfoReturnable<FormattedCharSequence> cir) {
-        String replaced = RubyText.replace(text);
-        if (!replaced.equals(text)) {
-            cir.setReturnValue(FormattedCharSequence.backward(replaced, style));
-        }
+        String replaced = RubiesNotEmeralds.replace(text);
+        if (!replaced.equals(text)) cir.setReturnValue(FormattedCharSequence.backward(replaced, style));
     }
 
     @Inject(method = "backward(Ljava/lang/String;Lnet/minecraft/network/chat/Style;Lit/unimi/dsi/fastutil/ints/Int2IntFunction;)Lnet/minecraft/util/FormattedCharSequence;", at = @At("HEAD"), cancellable = true, remap = false)
-    private static void rubytext$backwardWithMapper(String text, Style style, Int2IntFunction mapper,
+    private static void rubiesnotemeralds$backwardWithMapper(String text, Style style, Int2IntFunction mapper,
             CallbackInfoReturnable<FormattedCharSequence> cir) {
-        String replaced = RubyText.replace(text);
-        if (!replaced.equals(text)) {
-            cir.setReturnValue(FormattedCharSequence.backward(replaced, style, mapper));
-        }
+        String replaced = RubiesNotEmeralds.replace(text);
+        if (!replaced.equals(text)) cir.setReturnValue(FormattedCharSequence.backward(replaced, style, mapper));
     }
 }

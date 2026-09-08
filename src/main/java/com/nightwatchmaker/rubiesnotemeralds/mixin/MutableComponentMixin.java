@@ -1,6 +1,6 @@
-package com.nightwatchmaker.rubytext.mixin;
+package com.nightwatchmaker.rubiesnotemeralds.mixin;
 
-import com.nightwatchmaker.rubytext.RubyText;
+import com.nightwatchmaker.rubiesnotemeralds.RubiesNotEmeralds;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
@@ -11,24 +11,22 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
- * Server chat and other component-only UI paths can bypass the usual string
- * sequence factory. Flatten only matching components at this final display
- * boundary so literal server text such as "Emerald" also becomes "Ruby".
- * The red recolour is deliberately scoped to that same matching component.
+ * Covers literal server Components that bypass the normal sequence factory.
+ * Green changes are scoped to components whose text is being Ruby-renamed.
  */
 @Mixin(MutableComponent.class)
 public abstract class MutableComponentMixin {
     @Inject(method = "getVisualOrderText", at = @At("HEAD"), cancellable = true, remap = false)
-    private void rubytext$replaceComponentDisplay(CallbackInfoReturnable<FormattedCharSequence> cir) {
+    private void rubiesnotemeralds$replaceComponentDisplay(CallbackInfoReturnable<FormattedCharSequence> cir) {
         MutableComponent self = (MutableComponent) (Object) this;
         String original = self.getString();
-        String replaced = RubyText.replace(original);
+        String replaced = RubiesNotEmeralds.replace(original);
         if (!replaced.equals(original)) {
-            cir.setReturnValue(FormattedCharSequence.forward(replaced, rubytext$redIfGreen(self.getStyle())));
+            cir.setReturnValue(FormattedCharSequence.forward(replaced, rubiesnotemeralds$redIfGreen(self.getStyle())));
         }
     }
 
-    private static Style rubytext$redIfGreen(Style style) {
+    static Style rubiesnotemeralds$redIfGreen(Style style) {
         TextColor color = style.getColor();
         if (color == null) return style;
         if (color.getValue() == TextColor.GREEN.getValue()) return style.withColor(TextColor.RED);

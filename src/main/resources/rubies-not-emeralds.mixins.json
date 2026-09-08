@@ -1,0 +1,7 @@
+{
+  "required": true,
+  "package": "com.nightwatchmaker.rubiesnotemeralds.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": ["FormattedCharSequenceMixin", "MutableComponentMixin", "ItemStackMixin"],
+  "injectors": { "defaultRequire": 1 }
+}
