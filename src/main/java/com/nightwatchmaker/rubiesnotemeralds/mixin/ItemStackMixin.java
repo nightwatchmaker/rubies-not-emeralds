@@ -1,5 +1,6 @@
 package com.nightwatchmaker.rubiesnotemeralds.mixin;
 
+import com.nightwatchmaker.rubiesnotemeralds.RubiesNotEmeralds;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -21,7 +22,7 @@ public abstract class ItemStackMixin {
         ItemStack self = (ItemStack) (Object) this;
         if (BuiltInRegistries.ITEM.getKey(self.getItem()).equals(Identifier.withDefaultNamespace("emerald"))) {
             Component original = cir.getReturnValue();
-            cir.setReturnValue(original.copy().withStyle(MutableComponentMixin.rubiesnotemeralds$redIfGreen(original.getStyle())));
+            cir.setReturnValue(original.copy().withStyle(RubiesNotEmeralds.redIfGreen(original.getStyle())));
         }
     }
 }

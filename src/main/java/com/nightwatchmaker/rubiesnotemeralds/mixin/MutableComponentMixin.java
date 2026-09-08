@@ -2,8 +2,7 @@ package com.nightwatchmaker.rubiesnotemeralds.mixin;
 
 import com.nightwatchmaker.rubiesnotemeralds.RubiesNotEmeralds;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.TextColor;
+
 import net.minecraft.util.FormattedCharSequence;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,15 +21,7 @@ public abstract class MutableComponentMixin {
         String original = self.getString();
         String replaced = RubiesNotEmeralds.replace(original);
         if (!replaced.equals(original)) {
-            cir.setReturnValue(FormattedCharSequence.forward(replaced, rubiesnotemeralds$redIfGreen(self.getStyle())));
+            cir.setReturnValue(FormattedCharSequence.forward(replaced, RubiesNotEmeralds.redIfGreen(self.getStyle())));
         }
-    }
-
-    static Style rubiesnotemeralds$redIfGreen(Style style) {
-        TextColor color = style.getColor();
-        if (color == null) return style;
-        if (color.getValue() == TextColor.GREEN.getValue()) return style.withColor(TextColor.RED);
-        if (color.getValue() == TextColor.DARK_GREEN.getValue()) return style.withColor(TextColor.DARK_RED);
-        return style;
     }
 }
