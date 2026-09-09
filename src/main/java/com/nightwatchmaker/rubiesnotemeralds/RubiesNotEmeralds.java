@@ -48,8 +48,12 @@ public final class RubiesNotEmeralds {
         return CHAT_BUILD_DEPTH.get() > 0;
     }
 
-    /** Maps vanilla green formatting to the corresponding ruby red tone. */
-    public static Style redIfGreen(Style style) {
+    /**
+     * Recolours only a complete one-word Ruby/ruby text component. Compound
+     * names such as "Ruby Block" and every other text stay untouched.
+     */
+    public static Style redIfExactRuby(String text, Style style) {
+        if (!text.equals("Ruby") && !text.equals("ruby")) return style;
         TextColor color = style.getColor();
         if (color == null) return style;
         if (color.getValue() == TextColor.GREEN.getValue()) return style.withColor(TextColor.RED);

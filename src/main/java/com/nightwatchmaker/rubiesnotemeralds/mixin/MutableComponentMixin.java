@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
  * Covers literal server Components that bypass the normal sequence factory.
- * Green changes are scoped to components whose text is being Ruby-renamed.
+ * Green changes are scoped to complete one-word Ruby/ruby components only.
  */
 @Mixin(MutableComponent.class)
 public abstract class MutableComponentMixin {
@@ -21,7 +21,7 @@ public abstract class MutableComponentMixin {
         String original = self.getString();
         String replaced = RubiesNotEmeralds.replace(original);
         if (!replaced.equals(original)) {
-            cir.setReturnValue(FormattedCharSequence.forward(replaced, RubiesNotEmeralds.redIfGreen(self.getStyle())));
+            cir.setReturnValue(FormattedCharSequence.forward(replaced, RubiesNotEmeralds.redIfExactRuby(replaced, self.getStyle())));
         }
     }
 }
