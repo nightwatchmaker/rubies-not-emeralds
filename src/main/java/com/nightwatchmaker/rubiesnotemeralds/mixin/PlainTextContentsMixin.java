@@ -12,7 +12,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
  * Replaces literal Component text before Minecraft measures and lays it out.
- * This keeps centered server messages centered after Emerald becomes Ruby.
+ * This keeps centered server messages centered after Emerald becomes Ruby and
+ * recolours green styles while those exact Ruby literals are still styled.
  */
 @Mixin(PlainTextContents.LiteralContents.class)
 public abstract class PlainTextContentsMixin {
@@ -31,6 +32,9 @@ public abstract class PlainTextContentsMixin {
         PlainTextContents.LiteralContents self = (PlainTextContents.LiteralContents) (Object) this;
         String original = self.text();
         String replaced = RubiesNotEmeralds.replace(original);
-        if (!replaced.equals(original)) cir.setReturnValue(consumer.accept(style, replaced));
+        Style rubyStyle = RubiesNotEmeralds.redIfExactRuby(replaced, style);
+        if (!replaced.equals(original) || rubyStyle != style) {
+            cir.setReturnValue(consumer.accept(rubyStyle, replaced));
+        }
     }
 }
